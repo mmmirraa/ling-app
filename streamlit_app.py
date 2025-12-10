@@ -59,10 +59,13 @@ def analyze_sentence_spacy(sentence: str):
             human_readable = " ".join(filter(None, [person, number, tense, mood, verbform]))
 
             results.append({
-                "token": token.text,
-                "lemma": token.lemma_,
-                "conjugation": human_readable,
-                "person": morph.get("Person")[0]
+                "Verb": token.text,
+                "Lemma": token.lemma_,
+                "Conjugation": human_readable,
+                "Person": person,
+                "Number": number,
+                "Tense": tense,
+                "Mood": mood
             })
     return results
 
