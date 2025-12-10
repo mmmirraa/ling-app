@@ -23,7 +23,7 @@ def load_spacy_model(model_name: str = "pt_core_news_sm"):
 nlp = load_spacy_model()
 
 # --- Human-readable mapping dictionaries ---
-person_map = {"1": "First Person", "2": "Second Person", "3": "Third Person"}
+person_map = {"1": "First-Person", "2": "Second-Person", "3": "Third-Person"}
 number_map = {"Sing": "Singular", "Plur": "Plural"}
 tense_map = {
     "Pres": "Present-Tense",
@@ -61,7 +61,8 @@ def analyze_sentence_spacy(sentence: str):
             results.append({
                 "token": token.text,
                 "lemma": token.lemma_,
-                "conjugation": human_readable
+                "conjugation": human_readable,
+                "person": morph.get("Person")
             })
     return results
 
@@ -76,5 +77,5 @@ if st.button("Analyze"):
     else:
         for r in results:
             st.markdown("---")
-            st.markdown(f"### {r['token']} (lemma: *{r['lemma']}*)")
+            st.markdown(f"### {r['token']} (Lemma: *{r['Lemma']}*)")
             st.write(f"**Conjugation:** {r['conjugation'] if r['conjugation'] else '(none)'}")
