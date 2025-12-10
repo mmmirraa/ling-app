@@ -80,5 +80,5 @@ if st.button("Analyze"):
     else:
         for r in results:
             st.markdown("---")
-            st.markdown(f"### {r['token']} (Lemma: *{r['Lemma']}*)")
+            st.markdown(f"### {r['Verb']} (Lemma: *{r['Lemma']}*)")
             st.write(f"**Conjugation:** {r['conjugation'] if r['conjugation'] else '(none)'}")
