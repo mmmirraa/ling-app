@@ -7,7 +7,7 @@ from typing import List, Dict, Optional
 
 # --- spaCy loading (cached) ---
 @st.cache_resource
-def load_spacy_model(model_name: str = "pt_core_news_sm"):
+def load_spacy_model(model_name: str = "pt_core_news_lg"):
     try:
         import spacy
         nlp = spacy.load(model_name)
