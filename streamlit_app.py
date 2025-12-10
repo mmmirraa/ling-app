@@ -5,6 +5,23 @@ import pandas as pd
 import streamlit as st
 from typing import List, Dict, Optional
 
+# --- spaCy loading (cached) ---
+@st.cache_resource
+def load_spacy_model(model_name: str = "pt_core_news_sm"):
+    try:
+        import spacy
+        nlp = spacy.load(model_name)
+        return nlp
+    except Exception:
+        # try to download model then load
+        import spacy
+        from spacy.cli import download as spacy_download
+        spacy_download(model_name)
+        nlp = spacy.load(model_name)
+        return nlp
+
+nlp = load_spacy_model()
+
 # --- Human-readable mapping dictionaries ---
 person_map = {"1": "First Person", "2": "Second Person", "3": "Third Person"}
 number_map = {"Sing": "Singular", "Plur": "Plural"}
