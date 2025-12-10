@@ -256,7 +256,7 @@ df_verbs = None
 # --- SPA UI ---
 st.set_page_config(page_title="Portuguese Verb Analyzer", layout="centered")
 st.title("Portuguese Verb Analyzer")
-st.write("Type a Portuguese sentence and get verb analysis (lemma, tense/person/number from spaCy, and dictionary conjugation if available).")
+st.write("Type a Portuguese sentence and get verb analysis (lemma, tense/person/number).")
 
 with st.sidebar:
     st.write("Data and settings")
@@ -268,39 +268,45 @@ with st.sidebar:
         _ = dialogue_cleaner_from_text(read_bfamdl_files())
         _ = build_df_verbs_from_corpus()
         st.success("Caches refreshed (if files were present).")
-
-sentence = st.text_input("Enter a Portuguese sentence:", placeholder="Ex: Nós falamos ontem.")
-analyze_button = st.button("Analyze")
-
-if analyze_button:
-    # ensure df_verbs built
-    with st.spinner("Building/using cached corpus data (this runs only once)..."):
-        df_verbs = build_df_verbs_from_corpus()
-
-    # run analysis on the input sentence
+def analyze_sentence_spacy(sentence):
     doc = nlp(sentence)
     results = []
+
     for token in doc:
         if token.pos_ == "VERB" or token.pos_ == "AUX":
-            token_text = token.text
-            lemma = token.lemma_
-            classification = classify_verb_local(lemma)
-            conj = find_conjugation_local(token_text, lemma, verb_totals)
             morph = token.morph
-            spaCy_features = {
-                "Tense": morph.get("Tense"),
-                "Person": morph.get("Person"),
-                "Number": morph.get("Number"),
-                "Mood": morph.get("Mood"),
-                "VerbForm": morph.get("VerbForm"),
-            }
             results.append({
-                "token": token_text,
-                "lemma": lemma,
-                "classification": classification,
-                "conjugation_annotation": conj,
-                "morphology": spaCy_features
+                "token": token.text,
+                "lemma": token.lemma_,
+                "pos": token.pos_,
+                "tense": morph.get("Tense"),
+                "person": morph.get("Person"),
+                "number": morph.get("Number"),
+                "mood": morph.get("Mood"),
+                "verbform": morph.get("VerbForm")
             })
+
+    return results
+
+sentence = st.text_input("Enter a Portuguese sentence:")
+
+if st.button("Analyze"):
+    results = analyze_sentence_spacy(sentence)
+
+    if not results:
+        st.info("No verbs found.")
+    else:
+        for r in results:
+            st.markdown("---")
+            st.markdown(f"### {r['token']} (lemma: *{r['lemma']}*)")
+            
+            st.write("**spaCy Morphology:**")
+            st.write(f"- Tense: {', '.join(r['tense']) if r['tense'] else '(none)'}")
+            st.write(f"- Person: {', '.join(r['person']) if r['person'] else '(none)'}")
+            st.write(f"- Number: {', '.join(r['number']) if r['number'] else '(none)'}")
+            st.write(f"- Mood: {', '.join(r['mood']) if r['mood'] else '(none)'}")
+            st.write(f"- VerbForm: {', '.join(r['verbform']) if r['verbform'] else '(none)'}")
+
 
     if not results:
         st.info("No verbs found in the sentence (or sentence empty).")
