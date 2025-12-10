@@ -62,7 +62,7 @@ def analyze_sentence_spacy(sentence: str):
                 "token": token.text,
                 "lemma": token.lemma_,
                 "conjugation": human_readable,
-                "person": morph.get("Person")
+                "person": morph.get("Person")[0]
             })
     return results
 
