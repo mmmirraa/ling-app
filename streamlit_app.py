@@ -67,3 +67,16 @@ if st.button("Analyze"):
             st.markdown("---")
             st.markdown(f"### {r['Verb']} (Lemma: *{r['Lemma']}*)")
             st.write(f"**Conjugation:** {r['Conjugation']}")
+
+# Footer
+st.markdown("---")
+st.markdown(
+    """
+    <div style="text-align: center; font-size: 14px; color: #666;">
+        <strong>Portuguese Verb Analyzer</strong><br>
+        LING 430 — Final Project<br>
+        Created by Maria Hernandez Carpio, Samaya Castro, and Mirfat Maani
+    </div>
+    """,
+    unsafe_allow_html=True
+)
