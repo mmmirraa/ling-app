@@ -26,7 +26,28 @@ REGULAR_ENDINGS = {
             "2PL-Inf": "áveis",
             "2PL-For": "avam",
             "3PL": "avam"
+        },
+            "PRSTInd": {
+            "1SG": "o",
+            "2SG-Inf": "as",
+            "2SG-For": "a",
+            "3SG": "a",
+            "1PL": "amos",
+            "2PL-Inf": "ais",
+            "2PL-For": "am",
+            "3PL": "am"
+        },
+            "PRSTSub": {
+            "1SG": "e",
+            "2SG-Inf": "es",
+            "2SG-For": "e",
+            "3SG": "e",
+            "1PL": "emos",
+            "2PL-Inf": "eis",
+            "2PL-For": "em",
+            "3PL": "em"
         }
+        
     },
 
     "er": {
@@ -49,6 +70,26 @@ REGULAR_ENDINGS = {
             "2PL-Inf": "íeis",
             "2PL-For": "iam",
             "3PL": "iam"
+        },
+            "PRSTInd": {
+            "1SG": "o",
+            "2SG-Inf": "es",
+            "2SG-For": "e",
+            "3SG": "e",
+            "1PL": "emos",
+            "2PL-Inf": "eis",
+            "2PL-For": "em",
+            "3PL": "em"
+        },
+            "PRSTSub": {
+            "1SG": "a",
+            "2SG-Inf": "as",
+            "2SG-For": "a",
+            "3SG": "a",
+            "1PL": "amos",
+            "2PL-Inf": "ais",
+            "2PL-For": "am",
+            "3PL": "am"
         }
     },
 
@@ -72,6 +113,26 @@ REGULAR_ENDINGS = {
             "2PL-Inf": "íeis",
             "2PL-For": "iam",
             "3PL": "iam"
+        },
+            "PRSTInd": {
+            "1SG": "o",
+            "2SG-Inf": "es",
+            "2SG-For": "e",
+            "3SG": "e",
+            "1PL": "imos",
+            "2PL-Inf": "is",
+            "2PL-For": "em",
+            "3PL": "em"
+        },
+            "PRSTSub": {
+            "1SG": "a",
+            "2SG-Inf": "as",
+            "2SG-For": "a",
+            "3SG": "a",
+            "1PL": "amos",
+            "2PL-Inf": "ais",
+            "2PL-For": "am",
+            "3PL": "am"
         }
     }
 }
@@ -111,7 +172,9 @@ PERSON_LABELS = {
 
 TENSE_LABELS = {
     "PSTSimple": "Past-Tense Simple",
-    "PSTImperfect": "Past-Tense Imperfect"
+    "PSTImperfect": "Past-Tense Imperfect",
+    "PRSTInd": "Present-Tense Indicative",
+    "PRSTSub": "Present-Tense Subjunctive"
 }
 
 def pretty_label(code: str):
