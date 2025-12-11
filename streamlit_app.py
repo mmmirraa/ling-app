@@ -70,9 +70,7 @@ def analyze_sentence_spacy(sentence: str):
     return results
 
 # --- Streamlit UI ---
-sentence = st.text_input(
-    "Enter a Portuguese sentence: (Hint: Try 'A garota sabe como ele encontrou o anel dela.')"
-)
+sentence = st.text_input("Enter a Portuguese sentence: (Hint: Try 'A garota sabe como ele encontrou o anel dela')")
 
 if st.button("Analyze"):
     results = analyze_sentence_spacy(sentence)
@@ -82,13 +80,5 @@ if st.button("Analyze"):
     else:
         for r in results:
             st.markdown("---")
-
-            # title line
-            st.markdown(f"### {r['token']} (Lemma: *{r['lemma']}*)")
-
-            # build conjugation string
-            conj = r.get("conjugation_string", None)
-            if conj:
-                st.write(f"**Conjugation:** {conj}")
-            else:
-                st.write("**Conjugation:** (none)")
+            st.markdown(f"### {r['Verb']} (Lemma: *{r['Lemma']}*)")
+            st.write(f"**Conjugation:** {r['Conjugation'] if r['Conjugation'] else '(none)'}")
