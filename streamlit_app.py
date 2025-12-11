@@ -70,7 +70,8 @@ def analyze_sentence_spacy(sentence: str):
     return results
 
 # --- Streamlit UI ---
-sentence = st.text_input("Enter a Portuguese sentence: (Hint: Try 'A garota sabe como ele encontrou o anel dela')")
+st.title("Portuguse Verb Analyzer")
+sentence = st.text_input("Enter a Portuguese sentence: (Hint: Try 'A garota sabe como ele encontrou o anel dela.')")
 
 if st.button("Analyze"):
     results = analyze_sentence_spacy(sentence)
