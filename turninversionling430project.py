@@ -22,6 +22,10 @@ Before running this project, ensure you have run the following in your terminal:
 # Set-Up System
 """
 
+
+# MAJOR NOTE: Majority of this code was used as a reference, and is not actually
+# directly utilized in the development of the website
+
 import os
 import re
 import nltk
