@@ -70,7 +70,10 @@ def analyze_sentence_spacy(sentence: str):
     return results
 
 # --- Streamlit UI ---
-sentence = st.text_input("Enter a Portuguese sentence:")
+sentence = st.text_input(
+    "Enter a Portuguese sentence:",
+    placeholder="A garota sabe como ele encontrou o anel dela."
+)
 
 if st.button("Analyze"):
     results = analyze_sentence_spacy(sentence)
