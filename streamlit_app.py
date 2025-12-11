@@ -75,7 +75,7 @@ st.markdown(
     <div style="text-align: center; font-size: 14px; color: #666;">
         <strong>Portuguese Verb Analyzer</strong><br>
         LING 430 — Final Project<br>
-        Created by Maria Hernandez Carpio, Samaya Castro, and Mirfat Maani
+        Created by Maria Hernandez Carpio, Samaya Castro, and Mirfat Maani<br>
         Built using <strong>spaCy</strong> and the <em>pt_core_news_sm</em> language model.
     </div>
     """,
