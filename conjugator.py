@@ -4,7 +4,7 @@
 
 
 # Master table for regular endings
-# Limitation: So far this is only for verbs in the past-tense
+# Limitation: So far this is only for verbs in the past-tense and present-tense
 REGULAR_ENDINGS = {
     "ar": {
         "PSTSimple": {
@@ -138,9 +138,7 @@ REGULAR_ENDINGS = {
 }
 
 
-# -----------------------------------------
-# Generate full conjugation table
-# -----------------------------------------
+# gets all conjugations for regular verbs
 def generate_regular_conjugations(lemma: str):
     """Return dict of all regular forms for a verb ending in -ar/-er/-ir."""
     ending = lemma[-2:]
@@ -158,7 +156,7 @@ def generate_regular_conjugations(lemma: str):
     return conj
 
 
-# Human-Friendly label mappings
+# Human-Friendly label mappings for person(and number) and tense
 PERSON_LABELS = {
     "1SG": "First Person Singular",
     "2SG-Inf": "Second Person Singular Informal",
@@ -177,6 +175,8 @@ TENSE_LABELS = {
     "PRSTSub": "Present-Tense Subjunctive"
 }
 
+
+# function that is able to get pretty labels
 def pretty_label(code: str):
     if code == "Infinitive":
         return "Infinitive"
@@ -185,14 +185,13 @@ def pretty_label(code: str):
 
 
 # fallback for verbs identified by spaCy but morphology not given
-def match_regular_conjugation(token: str, lemma: str):
-    """
-    Attempt to match a verb to its regular conjugation paradigm.
-    Returns human-readable label or None.
-    """
-    conj = generate_regular_conjugations(lemma)
+# gets the lemma, identifies all the conjugations, and then tries find a match
+# outputs pretty label for the proper conjugaton
 
-    for code, form in conj.items():
+def match_regular_conjugation(token: str, lemma: str):
+    conj = generate_regular_conjugations(lemma) # takes lemma and gets all conjugations
+
+    for code, form in conj.items(): # 
         if form == token:
             return pretty_label(code)
 

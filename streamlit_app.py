@@ -2,14 +2,14 @@ import streamlit as st
 import spacy
 from conjugator import match_regular_conjugation
 
-# --- Load spaCy model ---
+# Load spaCy model
 @st.cache_resource
 def load_spacy_model():
     return spacy.load("pt_core_news_sm")
 
 nlp = load_spacy_model()
 
-# --- readable mapping dictionaries for spaCy ---
+# Readable mapping dictionaries for spaCy
 person_map = {"1": "First-Person", "2": "Second-Person", "3": "Third-Person"}
 number_map = {"Sing": "Singular", "Plur": "Plural"}
 tense_map = {"Pres": "Present-Tense", "Past": "Past-Tense", "Fut": "Future-Tense"}
@@ -17,13 +17,14 @@ mood_map = {"Ind": "Indicative", "Imp": "Imperative", "Sub": "Subjunctive", "Cnd
 verbform_map = {"Fin": "Finite", "Inf": "Infinitive", "Part": "Participle", "Ger": "Gerund"}
 
 
-# --- Analyze sentence ---
+# Analyze sentence
 def analyze_sentence_spacy(sentence: str):
     doc = nlp(sentence)
     results = []
 
     for token in doc:
         if token.pos_ in ["VERB", "AUX"]:
+            # for each verb in the data, get morphology and human readable label
             morph = token.morph
 
             person = person_map.get(morph.get("Person")[0], "") if morph.get("Person") else ""
@@ -32,10 +33,10 @@ def analyze_sentence_spacy(sentence: str):
             mood = mood_map.get(morph.get("Mood")[0], "") if morph.get("Mood") else ""
             verbform = verbform_map.get(morph.get("VerbForm")[0], "") if morph.get("VerbForm") else ""
 
-            # spaCy-generated label
+            # spaCy-generated label (readable version)
             spacy_label = " ".join(filter(None, [person, number, tense, mood, verbform]))
 
-            # fallback: regular conjugator if spaCy fails
+            # fallback: regular conjugator (conjugator.py) if spaCy fails
             if not spacy_label.strip():
                 fallback = match_regular_conjugation(token.text.lower(), token.lemma_)
             else:
@@ -52,7 +53,10 @@ def analyze_sentence_spacy(sentence: str):
     return results
 
 
-# --- UI ---
+
+
+
+# User Interface Code
 st.title("Portuguese Verb Analyzer")
 
 sentence = st.text_input("Enter a Portuguese sentence: (Hint: Try 'A garota sabe como ele encontrou o anel dela.')")
